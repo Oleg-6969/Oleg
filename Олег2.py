@@ -1,4 +1,4 @@
-list=[12, 23, 43, 565,2, 5, 6, 4, 0, 1, 'banana', 'apple', 'melon', 'pear', 'plum', 'kiwi', 'cherry','peach', 'orange', 'grape']
+a=[12, 23, 43, 565,2, 5, 6, 4, 0, 1, 'banana', 'apple', 'melon', 'pear', 'plum', 'kiwi', 'cherry','peach', 'orange', 'grape']
 numbers = []
 letters = []
 for item in a:

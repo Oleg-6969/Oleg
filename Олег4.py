@@ -1,47 +1,63 @@
-def format_price(price: float) -> str:
-    return f"ціна: {price:.2f} грн"
+store = {
+    'bread': 25.5,
+    'butter': 72.9,
+    'eggs': 54,
+    'sugar': 39.5,
+    'salt': 17.25,
+    'coffee': 210,
+    'tea': 145.75,
+    'chocolate': 89.9,
+    'pasta': 48,
+    'oil': 92.4
+}
 
-def check_availability(*products) -> dict:
-    store = {
-        "хліб": True,
-        "молоко": True,
-        "масло": False,
-        "сир": True,
-        "яблука": True,
-        "цукор": False
-    }
-    return {product: store.get(product, False) for product in products}
 
-def process_order(order: list, action: str):
-    prices = {
-        "хліб": 25.5,
-        "молоко": 32.0,
-        "масло": 70.75,
-        "сир": 120.0,
-        "яблука": 45.25,
-        "цукор": 30.0
-    }
-    availability = check_availability(*order)
-    if not all(availability.values()):
-        print("Деякі товари відсутні в магазині:")
-        for product, available in availability.items():
-            if not available:
-                print(f"- {product} (немає)")
-        return
-    total = sum(prices[product] for product in order)
-    if action == "переглянути":
-        print("Ваше замовлення:")
-        for product in order:
-            print(f"{product} - {format_price(prices[product])}")
-        print(f"Загальна {format_price(total)}")
-    elif action == "купити":
-        print("Замовлення успішно оформлено!")
-        print(f"До сплати: {format_price(total)}")
+def format_price(price):
+    return f"price: {price:.2f} UAH"
 
-while True:
-    choice = input("\nОберіть дію (купити / переглянути / вихід): ").lower()
-    if choice == "вихід":
-        break
-    items = input("Введіть товари через кому: ").lower().split(",")
-    items = [item.strip() for item in items if item.strip()]
-    process_order(items, choice)
+
+def check(products):
+    result = {}
+    for product in products:
+        result[product] = product in store
+    return result
+
+
+def order(products):
+    availability = check(products)
+
+    if all(availability.values()):
+        total = 0
+        for product in products:
+            total += store[product]
+        return f"Усі товари є! Загальна {format_price(total)}"
+    else:
+        miss = [product for product, available in availability.items()
+                if not available]
+        return f"Немає в наявності: {' '.join(miss)}"
+
+
+def main():
+    while True:
+        print("1 - Переглянути ціну\n2 - Купити")
+        choice = input("Your choice: ")
+
+        user_input = input("Введи товари через пробіл: ")
+        products = user_input.split()
+
+        if choice == "1":
+            availability = check(products)
+            for product, is_available in availability.items():
+                if is_available:
+                    print(f"{product} – {format_price(store[product])}")
+                else:
+                    print(f"{product} – нема в наявності")
+
+        elif choice == "2":
+            print(order(products))
+        else:
+            print("Невірний вибір, спробуй ще раз.")
+
+
+if __name__ == "__main__":
+    main()

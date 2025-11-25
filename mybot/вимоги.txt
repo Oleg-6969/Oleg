@@ -1,7 +1,7 @@
-сертифікація==2025.10.5
-нормалізатор кодування==3.4.4
-ідна==3.11
-API pythonTelegramBot==4.29.1
+﻿certifi==2025.10.5
+charset-normalizer==3.4.4
+idna==3.11
+pyTelegramBotAPI==4.29.1
 python-dotenv==1.2.1
-запити==2.32.5
-URL-лі63==2.5.0
+requests==2.32.5
+urllib3==2.5.0
